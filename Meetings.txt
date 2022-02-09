@@ -1,0 +1,19 @@
+Meetings minutes. 
+
+Meeting 1: 
+
+Discussed the coursework objectives, went through lab1 and lab2 
+
+Shared contact details, and requested github usernames to be added to the project. 
+
+Meeting 2: 
+
+Went through lab2, save, stage changes, commit, push and pull with practice during lab.
+
+Meeting 3: 
+
+Set up project backlog on Azure DevOps, added team the team members and discussed the roles and how backlog works. 
+
+Meeting 4: 
+
+Went through the submission, shared the submission files and agreed on them.
