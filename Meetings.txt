@@ -1,19 +1,18 @@
 Meetings minutes. 
 
 Meeting 1: 
-
+26/01/2022 (10:
 Discussed the coursework objectives, went through lab1 and lab2 
-
 Shared contact details, and requested github usernames to be added to the project. 
 
 Meeting 2: 
-
-Went through lab2, save, stage changes, commit, push and pull with practice during lab.
+31/01/2022 (14:00 - 15:00)
+Went through lab2, save, stage changes, commit, push and pull with practice own computer.
 
 Meeting 3: 
-
+02/02/2022 (14:00 -15:00)
 Set up project backlog on Azure DevOps, added team the team members and discussed the roles and how backlog works. 
 
-Meeting 4: 
-
+Meeting 4:
+04/02/2022 (14:15 - 15:30)
 Went through the submission, shared the submission files and agreed on them.
