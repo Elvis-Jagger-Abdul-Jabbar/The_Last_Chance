@@ -16,3 +16,8 @@ Set up project backlog on Azure DevOps, added team the team members and discusse
 Meeting 4:
 04/02/2022 (14:15 - 15:30)
 Went through the submission, shared the submission files and agreed on them.
+
+
+Meeting 5:
+10/2/2022 (13:30-2:30)
+Went through more for Dockerfile, discuss about update our code of conduct, also focused on our lab works. 
