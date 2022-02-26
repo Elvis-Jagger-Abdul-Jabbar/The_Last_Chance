@@ -7,9 +7,9 @@
   This project aims to create a web application that provides reports on world population.
  
  # Requirements:
-    • Front-end should use PUG.
-    • Web back- end must run via Node.js.
-    • Front-end and back-end must communicate via Express.js.
-    • The application must use a database for storage.
-    • The application must be version controlled (Git) and publicly accessible on GitHub.
-    • The application must be deployable as a Docker container.
+    • Front-end uses PUG.
+    • Web back- end runs via Node.js.
+    • Front-end and back-end communicate via Express.js.
+    • The application uses a database for storage.
+    • The application is version controlled (Git) and publicly accessible on GitHub.
+    • The application is deployable as a Docker container.
