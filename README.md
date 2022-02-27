@@ -13,3 +13,5 @@
     • The application uses a database for storage.
     • The application is version controlled (Git) and publicly accessible on GitHub.
     • The application is deployable as a Docker container.
+
+# How to run:
