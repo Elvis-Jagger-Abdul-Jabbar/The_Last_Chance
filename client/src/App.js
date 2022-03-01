@@ -13,11 +13,23 @@ class App extends Component {
         fetch("http://localhost:9000/testAPI")
             .then(res => res.text())
             .then(res => this.setState({ apiResponse: res }))
+            
             .catch(err => err);
     }
+
+    // Call db
+    callDB() {
+        fetch("http://localhost:9000/testDB")
+            .then(res => res.text())
+            .then(res => this.setState({ dbResponse: res }))
+            .catch(err => err);
+    }
+
     // Method to execute callAPI 
     componentDidMount() {
         this.callAPI();
+        // execute db when mount
+        this.callDB();
     }
     // Display API response
     render() {
@@ -29,6 +41,7 @@ class App extends Component {
                 </header>
                 
                 <p className="App-intro">{this.state.apiResponse}</p>
+                <p className="App-intro">{this.state.dbResponse}</p>
             </div>
         );
     }
