@@ -33,6 +33,8 @@ Meeting 7:
 Discussion about the main things that we have done in sprint 2
 
 Meeting 8:
+28/02/2022 (17:00 - 18:00)
+We worked on the use case diagram of the project.
 
 
 
