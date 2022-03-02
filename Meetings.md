@@ -32,3 +32,7 @@ Meeting 7:
 25/02/2022 (13:30 - 15:30)
 Discussion about the main things that we have done in sprint 2
 
+Meeting 8:
+
+
+
