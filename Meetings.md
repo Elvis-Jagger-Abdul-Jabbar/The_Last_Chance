@@ -30,7 +30,5 @@ The team agreed on completing all labs before next meeting, so we are aware of t
 
 Meeting 7:
 25/02/2022 (13:30 - 15:30)
-
 Discussion about the main things that we have done in sprint 2
 
-Raffi
