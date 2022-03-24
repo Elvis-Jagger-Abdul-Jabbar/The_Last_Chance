@@ -1,4 +1,5 @@
 ***MEETINGS***
+
 Meeting 1: 
 26/01/2022 (10:
 Discussed the coursework objectives, went through lab1 and lab2 
@@ -38,3 +39,7 @@ We worked on the use case diagram of the project. Also we discuss about user sto
 
 Meeting 9:
 07/03/2022 (14:00 - 15:00)
+
+Meeting 10:
+24/03/2022 (11:0011:30)
+Discussed Spring 3 submission, and updated each team member tasks.
