@@ -38,4 +38,9 @@ We worked on the use case diagram of the project. Also we discuss about user sto
 
 Meeting 9:
 07/03/2022 (14:00 - 15:00)
-We discussed about our progress on coding
+We discussed about our progress on coding.
+
+
+Meeting 10:
+15/03/2022 (14:00 - 15:00)
+We planed to deliver sprint 3 and discussed about each person tasks.
