@@ -1,0 +1,154 @@
+Test plan and reports
+
+□ Database construction in stage of realization and test
+Test preparation, realization, integrated test, system test and activities for writing a guideline are performed in the realization and test stage. The test plan is written through test preparation activities, and the design on the component test is carried out. The component and system are realized through realization activities, and the server component is linked by realizing the user interface. If its realization is complete, the integrated test and system test are executed, and its guideline is written. The following figure and table show a general procedure of the realization and test stages.
+Figure B-2. Procedure of Realization & Test
+ 
+
+
+
+Table B-5. Realization and Test Product
+Stage 	Activities 	Product 
+Realization and
+ Test
+	Test Preparation	• Test Plan
+• Component Test Design Documents
+	Realization 	• Physical Database
+• Component Code
+• Component Test Result Report
+	Integrated Test	• Integrated Test Design Documents
+• Integrated Test Result Report
+	System Test 	• System Test Design Documents
+• System Test Result Report
+	Writing of guideline 	• User Guideline
+• Operator Guideline
+
+□ In the procedure suggested in Fig. 1, the Database has structure that the RFID-based Data is collected to the integrated center, and also, a system, which purchases a RFID ticket through a u-Ticket office and use it, is constructed. For this, the work defining the logic of and physical model of data is already executed in the Database design activities, and the logic data model and physical data model being calculated from these activities become factors consisting of Data Architecture. The followings are component lists for database construction.
+	Center management system such as entry ticket management, tour site management, travel agency management, and tour statistics
+	Intermediary companies management system such as companies information management, ticket sales companies management, ticket products management, ticket issue management, statistics management and settlement management 
+	Ticket management system such as company’s info, cooperation, intermediary company’s management, RFID ticket management, ticket issue management, vending, refund, closing and settlement
+
+Figure B-3. Mobile u-Ticket System process
+ 
+
+Table B-6. Component Lists for Database Construction
+System 	Sub	List	Program ID
+Center Management System 
+	Login	　	
+	Finding ID/Password	　	
+	Main Screen	　	
+	Operator Management 	Operator list	
+		Operator viewing	
+		Operator registration	
+		Operator amendment 	
+		Operator deletion	
+	Management of Intermediate Companies  	List of Intermediate Companies	
+		Viewing of Intermediate Companies	
+		Registration of Intermediate Companies	
+		Amendment of Intermediate Companies	
+		Deletion of Intermediate Companies	
+	Management of Tourist Attractions	List of Tourist Attractions	
+		Viewing of Tourist Attractions	
+		Registration of Tourist Attractions	
+		Amendment of Tourist Attractions	
+		Deletion of Tourist Attractions	
+	Operator Management of Tourist Attractions	　	
+	Products Management	　	
+	Contract Creation Management of Intermediate Companies	　	
+	Basic Information Management	　	
+	Fee Management	Viewing of Product Fee 	
+		Amendment of Product Fee	
+	Statistics Management 	Sale Statistics of Tourist Attractions	
+		Statistics of Free Tourists	
+		Statistics of Tourists by Nationality	
+System	Sub	List	Program ID
+Management System of Intermediate Companies	Login	　	
+	Finding ID/Password 	　	
+	Information Management of Intermediate Companies	Viewing	
+		Amendment 	
+	Operator Management	　	
+	Information Management of Ticketing Offices	List	
+		Viewing	
+		Registration	
+		Amendment	
+		Deletion	
+	Contract Management of Ticketing Offices	　	
+	Management of u-Ticket Products	List of u-Ticket Products	
+		Viewing of u-Ticket Products	
+		Registration of u-Ticket Products	
+		Amendment  of u-Ticket Products	
+		Deletion of u-Ticket Products	
+	u- Ticket Booking Management	List of u-Ticket Booking	
+		Viewing of u-Ticket Booking	
+		Booking of u-Ticket	
+		Cancellation of u-Ticket Booking	
+	Refund Management 	Refund List	
+		Viewing of Refund Details	
+		Refund	
+		Amendment of Refund	
+	Statistics Management	Ticketing Statistics of u-Ticket 	
+		Refund Statistics of u-Ticket	
+		Statistics of u-Ticket Tourists	
+	Ticketing Management	Waiting List of Ticketing	
+		Viewing of Booking Information	
+		Ticketing	
+Linkage Module of Booking	Booking SYNC Service	Synchronization Program Checker of U Ticket Products 	
+		Real-time Booking Information Transmission Web Service	
+System 	Sub	List	Program ID
+Ticket Sale Management System 	Login	Login	
+		Main Screen	
+	Management
+of Basic Material  	Setting of Ticket Sale Environment 	
+		Setting of Card Payment Environment 	
+		Management of Price List	
+		Management of Employees	
+		POS Management	
+		Bringing Basic Material	
+		First Download of Information of Tourist Attractions	
+		Setting of Server Connection Environment 	
+	Ticket Sale Management	Ticket Sale Treatment	
+		Ticket Sale Details	
+		Credit Card Transaction Details	
+		Refund Details	
+	U Ticket Management	Inspection of U Ticket	
+		Bringing Booking Information	
+		Transmission of U Ticket Entry Information	
+	Settlement Management	Fee Payment	
+		Bill Collecting Status	
+		Status of Amount Receivable	
+		Management of Clients Information	
+	Closing Management	Work Closing	
+		Data Transmission	
+	Statistics Management	Daily Ticket Sale Statistics	
+		Group Viewing Statistics	
+		Free Viewing Statistics	
+		Foreigner Viewing Statistics	
+		Statistics by Card Company	
+		Statistics by Tourist Type	
+	Update	Program Update	
+	Finishing	Finishing	
+System 	Sub	List	Program ID
+Integrated Ticket Management System	Log In	Log-in	
+		Main Screen	
+	Basic Data Management	Tourism Place Information Creation	
+		User Management	
+		Charges Table Management	
+		Basic Data Download	
+		DB Connection Environment Creation	
+	Closing Information	Closing Status Board	
+		Closing History by Tourism Places	
+		Memo Registration	
+		Statistical Data Upload	
+	Statistical Data 	One-day Sales  Statistical Data	
+		Group Viewing Statistical Data	
+		Free Viewing Statistical Data	
+		Foreigner Viewing Statistical Data	
+		Statistical Data by Credit Card Company	
+		 Statistical Data by Tourists Types	
+	Update	Program Update	
+	Closing	Closing	
+
+□ Component Realization & User Interface Realization
+○ Principles for realization: Combining reusable software outcomes   
+	In order to prevent redundant investment in this project building, the modules that exist in u-Tour project are identified, shared, and reused. 
+	The changed realization and test of the software goes through the same process as development software. 
