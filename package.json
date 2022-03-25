@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.3",
     "mysql": "^2.18.1",
     "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "mysql-import": "^5.0.21"
   }
 }

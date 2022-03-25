@@ -2,36 +2,73 @@ const { query } = require('express');
 const express = require('express');
 const app = express();
 
+// Require pug and pug folder
 app.engine('pug', require('pug').__express)
 app.set('views', './views')
 app.set('view engine', 'pug');
 
 app.use(express.static(__dirname + '/public'));
 
+
+// Listen to port
 const server = app.listen(7000, () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
 
-let mysql = require('mysql');
+// Mysql
+var mysql = require('mysql');
 
-let connection = mysql.createConnection({
+// Mysql connection parameters
+var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'MYSQL_PASS',
     database: 'world'
 });
 
-// Connect
+// Connect to Mysql
 connection.connect(function(err) {
     if (err) {
       return console.error('error: ' + err.message);
     }
-    console.log("Connected to Mysql")
+    console.log("Connected to Mysql");
+    // Create database
+    connection.query("CREATE DATABASE IF NOT EXISTS world",
+      function (err, result){
+        if (err) throw err;
+        console.log("Database created or already exisiting");
+      })
   });
 
+  // Variables for mysql-import
+  const host = 'localhost';
+  const user = 'root';  
+  const password = 'MYSQL_PASS';
+  const database = 'world';
+
+  const Importer = require('mysql-import');
+  const importer = new Importer({host, user, password, database});
+  
+  // Shopw inport progress
+  importer.onProgress(progress=>{
+    var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
+    console.log(`${percent}% Completed`);
+  });
+
+  // Import world.sql
+  console.log('Importing SQL file.')
+  importer.import('./world-db/world.sql').then(()=>{
+    var files_imported = importer.getImported();
+    console.log(`${files_imported.length} SQL file(s) imported.`);
+  }).catch(err=>{
+    console.error(err);
+  });
+
+// Search for country
 search = () => {
 let fetchedData = [];
 let name = process.argv[2];
+let database = 'world'
 let sql = `SELECT population FROM country WHERE name =` + mysql.escape(name);
 connection.query(sql, (error, results, fields) => {
   if (error) {
@@ -44,13 +81,20 @@ connection.query(sql, (error, results, fields) => {
 });
 };
 
+// Mainpage get
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'World Population',
   });
 });
 
+app.post("/SkillOpted" , function(request, response){
+  response.render('SkillOpted',{
+      skill: request.body.dropDown
+  })
+})
 
+// Couontries get, query all from database
 app.get('/countries', function (req, res) {
 let fetchedData = [];
 let sql = `SELECT * FROM country`;
@@ -58,15 +102,32 @@ connection.query(sql, (error, countries, fields) => {
   if (error) {
     return console.error(error.message);
   }
+    // string json and return database to front end
     var string = JSON.stringify(countries);
     var json =  JSON.parse(string);
-    console.log(json);
+    //console.log(json);
     res.render('countries', {
       title: 'Countries',
       json,
-      
-    });    
-    
+    });
   });
-  
+
+  // Couontry get, query all from database
+app.get('/country', function (req, res) {
+  let fetchedData = [];
+  let sql = `SELECT * FROM country`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      //console.log(json);
+      res.render('country', {
+        title: 'Country',
+        json,
+      });
+    });
+  });
 });

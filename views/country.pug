@@ -1,0 +1,11 @@
+extends default
+
+block content
+
+    select(name="customerDropdown", id="customerDropdown" class="btn btn-success dropdown-toggle")
+        each country in json  
+            option=country.Name
+    
+    script.
+       document.getElementById("customerDropdown").innerHTML = salary;
+    
