@@ -1,39 +1,41 @@
 extends default
 
 block content
-  div
-    form(action='/Countries' method="post")        
-    table.table.tablesorter(style='width:50%', border='5')
-      tr
-        th Code 
-        th Name
-        th Continent
-        th Region 
-        th SurfaceArea 
-        th IndepYear 
-        th Population 
-        th LifeExpectancy 
-        th GNP 
-        th GNPOld
-        th LocalName
-        th GovernmentForm
-        th HeadOfState
-        th Capital
-        th Code2 
-      each country in json        
-        tr        
-          td #{country.Code}
-          td #{country.Name}
-          td #{country.Continent}
-          td #{country.Region}
-          td #{country.SurfeacArea}
-          td #{country.IndepYear}
-          td #{country.Population}
-          td #{country.LifeExpectancy}
-          td #{country.GNP}
-          td #{country.GNPOld}
-          td #{country.LocalName}
-          td #{country.GovernmentForm}
-          td #{country.HeadOfState}
-          td #{country.Capital}
-          td #{country.Code2}
+  head
+    title Countries, Population sorter
+    meta(charset='UTF-8')
+
+    link(rel='stylesheet', href='/css/tablesorter.css')
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js')
+    script(src='https://mottie.github.io/tablesorter/js/jquery.tablesorter.js')
+    script(src='https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js')
+
+  body
+
+    .container
+      block content
+ 
+      script(type='text/javascript').
+        $(function() {
+          $("table.tablesorter").tablesorter({
+            sortList: [[0,0]],
+            // set bootstrap theme
+            theme : 'bootstrap',
+            // icon needed for bootstrap theme
+            headerTemplate : '{content} {icon}',
+            // uitheme widget needed to apply bootstrap
+            widgets : [ 'uitheme' ]
+          });
+        });
+
+      table.tablesorter(style="width:100%")
+        thead
+          tr
+            th Name
+            th Population
+        each country in json
+          tr
+            td #{country.Name}
+            td #{country.Population}

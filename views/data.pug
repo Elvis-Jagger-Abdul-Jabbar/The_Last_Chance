@@ -1,0 +1,45 @@
+extends default
+
+block content
+  head
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  body 
+    button.btn
+      i.fa.fa-download
+        |  Download
+    div
+      form(action='/Countries' method="post")       
+      table(style='width:100%', border='1')
+        tr
+          th Code 
+          th Name
+          th Continent
+          th Region 
+          th SurfaceArea 
+          th IndepYear 
+          th Population 
+          th LifeExpectancy 
+          th GNP 
+          th GNPOld
+          th LocalName
+          th GovernmentForm
+          th HeadOfState
+          th Capital
+          th Code2 
+        each country in json        
+          tr        
+            td #{country.Code}
+            td #{country.Name}
+            td #{country.Continent}
+            td #{country.Region}
+            td #{country.SurfeacArea}
+            td #{country.IndepYear}
+            td #{country.Population}
+            td #{country.LifeExpectancy}
+            td #{country.GNP}
+            td #{country.GNPOld}
+            td #{country.LocalName}
+            td #{country.GovernmentForm}
+            td #{country.HeadOfState}
+            td #{country.Capital}
+            td #{country.Code2}

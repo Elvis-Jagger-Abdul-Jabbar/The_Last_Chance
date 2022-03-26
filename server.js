@@ -95,7 +95,7 @@ app.post("/SkillOpted" , function(request, response){
 })
 
 // Couontries get, query all from database
-app.get('/countries', function (req, res) {
+app.get('/data', function (req, res) {
 let fetchedData = [];
 let sql = `SELECT * FROM country`;
 connection.query(sql, (error, countries, fields) => {
@@ -106,14 +106,14 @@ connection.query(sql, (error, countries, fields) => {
     var string = JSON.stringify(countries);
     var json =  JSON.parse(string);
     //console.log(json);
-    res.render('countries', {
-      title: 'Countries',
+    res.render('data', {
+      title: 'Countries - All Data',
       json,
     });
   });
 
   // Couontry get, query all from database
-app.get('/country', function (req, res) {
+app.get('/countries', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT * FROM country`;
   connection.query(sql, (error, countries, fields) => {
@@ -124,10 +124,16 @@ app.get('/country', function (req, res) {
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
       //console.log(json);
-      res.render('country', {
-        title: 'Country',
+      res.render('countries', {
+        title: 'Countries, Population sorter',
         json,
       });
     });
   });
+  
+app.get('/africa', function (req, res){
+  res.render('africa', {
+    title: 'Africa Population',
+  });
+});
 });

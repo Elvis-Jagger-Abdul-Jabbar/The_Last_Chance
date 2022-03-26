@@ -1,9 +1,19 @@
 extends default
 
 block content
-  div.container
-    a(href=`/countries`)
-      button.btn.btn-blue Countries
-    div.container
-      a(href=`/country`)
-        button.btn.btn-blue Country
+  a(href=`/data`)
+    button Data
+  a(href=`/countries`)
+    button World Population
+  a(href=`/africa`)
+    button.button Africa population
+  a(href=`/europe`)
+    button.button Europe population
+  a(href=`/asia`)
+    button.button Asia population
+  a(href=`/australia`)
+    button.button Australia population
+  a(href=`/america`)
+    button.button America population
+    
+  img(src='./img/world.jpg' alt='world' style='width:1500px; height:700px;')
