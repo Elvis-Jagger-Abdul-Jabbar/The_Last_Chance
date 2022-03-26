@@ -5,13 +5,13 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/backend_api
+    working_directory: ~/
     executor: node/default
     steps:
       - checkout
       - node/install-npm
       - node/install-packages:
-          app-dir: ~/backend_api
+          app-dir: ~/
           cache-path: node_modules
           override-ci-command: npm i
       - persist_to_workspace:
