@@ -11,7 +11,7 @@ jobs:
       - checkout
       - node/install-npm
       - node/install-packages:
-          app-dir: ~/
+          app-dir: ~/https://github.com/Elvis-Jagger-Abdul-Jabbar/The_Last_Chance
           cache-path: node_modules
           override-ci-command: npm i
       - persist_to_workspace:
