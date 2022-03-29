@@ -1,40 +1,35 @@
-version: 2
-
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:10.14.2
-
+# Version
+version: 2.1
+# Collective of commands to be executed within pipeline
 jobs:
-  core:
-    <<: *defaults
-    working_directory: ~/repo
-
+  run_tests:
+    # Define where the source code is going to run (executor)
+    docker:
+      # Define image
+      - image: circleci/node:10
+    # Define the commands that will happen within the code
     steps:
+      # Alias for git clone
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: npm ci
-
-      - run: npm run test:ci
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - persist_to_workspace:
-          root: ~/repo
-          paths: .
-
+      # Run block
+      - run:
+        # Name (description)
+        name: Install npm dependencies
+        commands: |
+          npm install -- save
+      # Run the test
+      - run:
+        name: Run Unti Tests
+        command: |
+          ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
+      # Store test results in xml file
+      - store_test_results:
+        path: test-results
+      - store_artifacts:
+        path: test-results
+# Workflows
 workflows:
-  build_and_test:
+  build_test:
     jobs:
-      - build
-      - test
+      - run_tests
+
