@@ -5,9 +5,10 @@ jobs:
   run_tests:
     # Define where the source code is going to run (executor)
     docker:
-      # Define image
+      # Define images
       - image: circleci/node:10
       - image: cimg/mysql:5.7
+        # MySQL details
         environment:
           MYSQL_ROOT_PASSWORD: MYSQL_PASS
           MYSQL_DATABASE: world
