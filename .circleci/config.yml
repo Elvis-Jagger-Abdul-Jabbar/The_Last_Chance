@@ -24,9 +24,9 @@ jobs:
           ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
       # Store test results in xml file
       - store_test_results:
-        path: test-results
+          path: test-results
       - store_artifacts:
-        path: test-results
+          path: test-results
 # Workflows
 workflows:
   build_test:
