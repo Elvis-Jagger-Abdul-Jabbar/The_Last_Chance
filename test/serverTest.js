@@ -34,18 +34,17 @@ describe('Connect to Mysql', function(){
 //   })
 //});
 
-// Test onProgress
-// Commenting this for circelci test
-//describe('Import progress', function(){    
-//    it('Testing import progress, should say unknwon database ', function(){
-//        const importer = new Importer({host, user, password, database});
-//        importer.onProgress(progress=>{
-//        var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
-//        console.log(`${percent}% Completed`);
-//        });
-//        importer.onProgress();
-//    });
-//});
+// Test onProgress 
+describe('Import progress', function(){    
+    it('Testing import progress, should say unknwon database ', function(){
+        const importer = new Importer({host, user, password, database});
+        importer.onProgress(progress=>{
+        var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
+        console.log(`${percent}% Completed`);
+        });
+        importer.onProgress();
+    });
+});
 
 // Test app.get
 describe('Get /', function() {
@@ -57,10 +56,10 @@ describe('Get /', function() {
 });
 
 // Test app.get
-//describe('Get /data', function() {
-//    it('Data page', function(done) {
-//        request(server)
-//        .get('/data')
-//        .expect(200, done);
-//    });
-//});
+describe('Get /data', function() {
+    it('Data page', function(done) {
+        request(server)
+        .get('/data')
+        .expect(200, done);
+    });
+});
