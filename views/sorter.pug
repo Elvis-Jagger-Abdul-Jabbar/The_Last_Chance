@@ -1,0 +1,28 @@
+extends default
+
+block content
+  head    
+  body
+    a(href=`/`)
+      button Home    
+    div
+        form(action='/sorter' method="post")
+      
+    text   continent  
+    select
+        each continent in json
+            option(value!=continent.continent) #{continent.continent}
+    br
+    text country   
+    select
+        each country in json
+            option(value=country.Name) #{country.Name}
+
+    table.styled-table(style='width:60%', border='1', align='right')
+        tr
+            th Continent
+            th population
+        each continent in json        
+            tr
+                td #{continent.continent}
+                td #{continent.population}

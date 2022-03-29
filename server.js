@@ -1,3 +1,8 @@
+module.exports = {
+  hello: function(){
+    return 'Hello';
+  }
+}
 const { query } = require('express');
 const express = require('express');
 const app = express();
@@ -55,6 +60,8 @@ connection.connect(function(err) {
     console.log(`${percent}% Completed`);
   });
 
+
+    
   // Import world.sql
   console.log('Importing SQL file.')
   importer.import('./world-db/world.sql').then(()=>{
@@ -88,12 +95,6 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post("/SkillOpted" , function(request, response){
-  response.render('SkillOpted',{
-      skill: request.body.dropDown
-  })
-})
-
 // Couontries get, query all from database
 app.get('/data', function (req, res) {
 let fetchedData = [];
@@ -112,7 +113,7 @@ connection.query(sql, (error, countries, fields) => {
     });
   });
 
-  // Couontry get, query all from database
+// Country get, query all from database
 app.get('/countries', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT * FROM country`;
@@ -130,10 +131,68 @@ app.get('/countries', function (req, res) {
       });
     });
   });
-  
+ 
+// Query continent: Africa
 app.get('/africa', function (req, res){
-  res.render('africa', {
-    title: 'Africa Population',
+  let sql = `SELECT * FROM country where continent = 'Africa'`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      //console.log(json);
+      res.render('africa', {
+        title: 'Africa, Population sorter',
+        json,  
+      });
+    });
   });
+
+  // Query continent: Asia
+app.get('/europe', function (req, res){
+  let sql = `SELECT * FROM country where continent = 'Europe'`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      //console.log(json);
+      res.render('europe', {
+        title: 'Europe, Population sorter',
+        json,  
+      });
+    });
+  });
+
+
+  // Sorter page to test all data in one page
+app.get('/sorter', function (req, res) {
+  let fetchedData = [];
+  let sql = `SELECT continent as continent, 
+    SUM(population) as population
+    FROM country
+    GROUP BY continent `;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      console.log(json);
+      //console.log(json);
+      res.render('sorter', {
+        title: 'Sorter',
+        json,
+      });
+    });
+  });
+
+
 });
-});
+
+module.exports = server;

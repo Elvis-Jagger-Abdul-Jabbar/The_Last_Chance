@@ -1,6 +1,43 @@
 extends default
 
 block content
+  head
+    title Africa
     a(href=`/`)
       button Home
-    div coming soon
+    meta(charset='UTF-8')
+
+    link(rel='stylesheet', href='/css/tablesorter.css')
+
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+    script(src='https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js')
+    script(src='https://mottie.github.io/tablesorter/js/jquery.tablesorter.js')
+    script(src='https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js')
+
+  body
+
+    .container
+      block content
+ 
+      script(type='text/javascript').
+        $(function() {
+          $("table.tablesorter").tablesorter({
+            sortList: [[1,1]],
+            // set bootstrap theme
+            theme : 'bootstrap',
+            // icon needed for bootstrap theme
+            headerTemplate : '{content} {icon}',
+            // ui theme widget needed to apply bootstrap
+            widgets : [ 'uitheme' ]
+          });
+        });
+      
+      table.tablesorter(style="width:100%")
+        thead
+          tr
+            th Name
+            th Population
+        each country in json
+          tr
+            td #{country.Name}
+            td #{country.Population}
