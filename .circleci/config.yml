@@ -13,15 +13,15 @@ jobs:
       - checkout
       # Run block
       - run:
-        # Name (description)
-        name: Install npm dependencies
-        commands: |
-          npm install -- save
+          # Name (description)
+          name: Install npm dependencies
+          command: |
+            npm install --save
       # Run the test
       - run:
-        name: Run Unti Tests
-        command: |
-          ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
+          name: Run Unti Tests
+          command: |
+            ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
       # Store test results in xml file
       - store_test_results:
           path: test-results
