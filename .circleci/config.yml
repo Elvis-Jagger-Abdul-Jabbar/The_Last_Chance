@@ -53,6 +53,7 @@ jobs:
       # Run the test
       - run:
           name: Run Unti Tests
+          no_output_timeout: 30m
           command: |
             ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
       # Store test results in xml file
