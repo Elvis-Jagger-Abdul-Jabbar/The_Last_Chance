@@ -36,7 +36,7 @@ describe('Connect to Mysql', function(){
 
 // Test onProgress 
 describe('Import progress', function(){    
-    it('Testing import progress, should say unknwon database ', function(){
+    it('Testing import progress', function(){
         const importer = new Importer({host, user, password, database});
         importer.onProgress(progress=>{
         var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
@@ -51,15 +51,6 @@ describe('Get /', function() {
     it('Main page', function(done) {
         request(server)
         .get('/')
-        .expect(200, done);
-    });
-});
-
-// Test app.get
-describe('Get /data', function() {
-    it('Data page', function(done) {
-        request(server)
-        .get('/data')
         .expect(200, done);
     });
 });
