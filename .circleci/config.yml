@@ -34,11 +34,9 @@ jobs:
           paths: .
 
 workflows:
-  version: 2
-  core:
+  build_and_test:
     jobs:
-      - core:
-          filters:
-            branches:
-              only:
-                - master
+      - build
+      - test:
+          requires:
+            - build
