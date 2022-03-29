@@ -56,12 +56,12 @@ jobs:
           no_output_timeout: 30m
           command: |
             ./node_modules/mocha/bin/mocha test/ --reporter mochawesome --reporter-options reportDir=test-results,reportFilename=test-results
+            npm test --forceExit
       # Store test results in xml file
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: test-results
-          npm test --forceExit
      
 # Workflows
 workflows:
