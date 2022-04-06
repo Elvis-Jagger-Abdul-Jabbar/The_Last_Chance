@@ -2,10 +2,6 @@ extends default
 
 block content
   head
-    title Europe
-    a(href=`/`)
-      button Home
-    meta(charset='UTF-8')
 
     link(rel='stylesheet', href='/css/tablesorter.css')
 
@@ -27,17 +23,21 @@ block content
             theme : 'bootstrap',
             // icon needed for bootstrap theme
             headerTemplate : '{content} {icon}',
-            // uitheme widget needed to apply bootstrap
+            // ui theme widget needed to apply bootstrap
             widgets : [ 'uitheme' ]
           });
         });
-
+      
       table.tablesorter(style="width:100%")
         thead
           tr
             th Name
+            th Country
+            th District
             th Population
-        each country in json
+        each city in json
           tr
-            td #{country.Name}
-            td #{country.Population}
+            td #{city.Name}
+            td #{city.Country}
+            td #{city.District}
+            td #{city.Population}

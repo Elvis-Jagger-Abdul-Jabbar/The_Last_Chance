@@ -96,9 +96,11 @@ app.get('/', (req, res) => {
 });
 
 // Couontries get, query all from database
-app.get('/data', function (req, res) {
+app.get('/countries', function (req, res) {
 let fetchedData = [];
-let sql = `SELECT * FROM country`;
+let sql = `SELECT c.*, s.Name as 'Capital' 
+          FROM country c, city s
+          WHERE c.Capital = s.ID`
 connection.query(sql, (error, countries, fields) => {
   if (error) {
     return console.error(error.message);
@@ -107,14 +109,72 @@ connection.query(sql, (error, countries, fields) => {
     var string = JSON.stringify(countries);
     var json =  JSON.parse(string);
     //console.log(json);
-    res.render('data', {
-      title: 'Countries - All Data',
+    res.render('countries', {
+      title: 'Countries Data',
       json,
     });
   });
 
 // Country get, query all from database
-app.get('/countries', function (req, res) {
+app.get('/cities', function (req, res) {
+  let fetchedData = [];
+  let sql = `SELECT c.*, s.Name as 'Country' 
+            FROM city c, country s
+            WHERE c.CountryCode = s.Code`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      console.log(json);
+      res.render('cities', {
+        title: 'Cities Population',
+        json,
+      });
+    });
+  });
+ 
+// Query continent: Africa
+app.get('/languages', function (req, res){
+  let sql = `SELECT * FROM  countrylanguage`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      console.log(json);
+      res.render('languages', {
+        title: 'Languages',
+        json,  
+      });
+    });
+  });
+
+  // Query continent: Asia
+app.get('/data', function (req, res){
+  let sql = `SELECT * FROM country`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      //console.log(json);
+      res.render('data', {
+        title: 'Europe, Population sorter',
+        json,  
+      });
+    });
+  });
+
+
+// About route
+app.get('/about', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT * FROM country`;
   connection.query(sql, (error, countries, fields) => {
@@ -125,48 +185,13 @@ app.get('/countries', function (req, res) {
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
       //console.log(json);
-      res.render('countries', {
-        title: 'Countries, Population sorter',
+      res.render('about', {
+        title: 'testing filter -  all data',
         json,
       });
     });
   });
- 
-// Query continent: Africa
-app.get('/africa', function (req, res){
-  let sql = `SELECT * FROM country where continent = 'Africa'`;
-  connection.query(sql, (error, countries, fields) => {
-    if (error) {
-      return console.error(error.message);
-    }
-      // string json and return database to front end
-      var string = JSON.stringify(countries);
-      var json =  JSON.parse(string);
-      //console.log(json);
-      res.render('africa', {
-        title: 'Africa, Population sorter',
-        json,  
-      });
-    });
-  });
 
-  // Query continent: Asia
-app.get('/europe', function (req, res){
-  let sql = `SELECT * FROM country where continent = 'Europe'`;
-  connection.query(sql, (error, countries, fields) => {
-    if (error) {
-      return console.error(error.message);
-    }
-      // string json and return database to front end
-      var string = JSON.stringify(countries);
-      var json =  JSON.parse(string);
-      //console.log(json);
-      res.render('europe', {
-        title: 'Europe, Population sorter',
-        json,  
-      });
-    });
-  });
 
 
   // Sorter page to test all data in one page

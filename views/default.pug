@@ -9,4 +9,28 @@ html
       block header
         header.header
           h1 #{title}        
-      block content
+  head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  style.
+    
+#navbar
+  a.active(href='/') Home
+  a(href='/data') World
+  a(href='/countries') Countries
+  a(href='/cities') Cities
+  a(href='/capitals') Capitals
+  a(href='/about') About
+  a.right(href='/login') Login
+  a.right(href='/signup') Register
+script.
+  window.onscroll = function() {myFunction()};
+  var navbar = document.getElementById("navbar");
+  var sticky = navbar.offsetTop;
+  function myFunction() {
+  if (window.pageYOffset >= sticky) {
+  navbar.classList.add("sticky")
+  } else {
+  navbar.classList.remove("sticky");
+  }
+  }
+block content

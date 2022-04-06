@@ -32,10 +32,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    height: 180px;
     background-color: #525286;
     color: #FFFFFF;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
   }
   
   
@@ -156,6 +156,8 @@ button {
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left:500px;
+    margin-right:500px;
 }
 .styled-table thead tr {
   background-color: #009879;
@@ -184,3 +186,42 @@ button {
   color: #009879;
 }
 
+/* Navbar
+     ========================================================================== */
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+  }
+  #navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  }
+  #navbar a:hover {
+  background-color: #ddd;
+  color: black;
+  }
+  #navbar a.active {
+  background-color: #04AA6D;
+  color: white;
+  }
+  #navbar a.right {
+  color: white;
+  float: right;
+  }
+  .content {
+  padding: 16px;
+  }
+  .sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  }
+  .sticky + .content {
+  padding-top: 60px;
+  }
