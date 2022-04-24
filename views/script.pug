@@ -1,0 +1,86 @@
+script.
+  /*
+  THIS IS NOT NECESSARY ON REGULAR WEBSITES
+  If you're using a library like React, you'll need the mobile menu to close once a link has been clicked.
+  That's all the below code does.
+  */
+  const hamburgerButton = document.getElementById('hamburger-button');
+  const headerLinks = document.querySelectorAll('header .container .menu a');
+  headerLinks.forEach((link) => {
+  link.addEventListener('click', (e) => hamburgerButton.checked = false);
+  })
+
+  // Highlight Current Page link in the Navbar
+    document.addEventListener('DOMContentLoaded', () => {
+    const $navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'), 0);
+
+    if ($navLinks.length > 0) {
+        $navLinks.forEach( el => {
+        if(window.location.pathname == el.getAttribute("href")){
+            el.className += " current";
+        }
+        })
+    }
+    });
+    // End of Highlight Current Page link in the Navbar
+    // Highlight Current Page link in the Navbar
+    document.addEventListener('DOMContentLoaded', () => {
+    const $navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'), 0);
+
+    if ($navLinks.length > 0) {
+        $navLinks.forEach( el => {
+        if(window.location.pathname == el.getAttribute("href")){
+            el.className += " current";
+        }
+        })
+    }
+    });
+    // End of Highlight Current Page link in the Navbar
+
+
+    // Search in table
+    function searchTable() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+    txtValue = td.textContent || td.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    tr[i].style.display = "";
+    } else {
+    tr[i].style.display = "none";
+    }
+    }
+    }
+
+
+    }
+    
+
+    // filter table
+
+    function filterTable(mytable, column, n) {
+        // Variables
+        let dropdown, table, rows, cells, country, filter;
+        dropdown = document.getElementById(column);
+        table = document.getElementById(mytable);
+        rows = table.getElementsByTagName("tr");
+        filter = dropdown.value;
+
+        // Loops through rows and hides those with countries that don't match the filter
+        for (let row of rows) { // `for...of` loops through the NodeList
+            cells = row.getElementsByTagName("td");
+            value = cells[n] || null; // gets the 2nd `td` or nothing
+            // if the filter is set to 'All', or this is the header row, or 2nd `td` text matches filter
+            if (filter === "All" || !value || (filter === value.textContent)) {
+            row.style.display = ""; // shows this row
+            }
+            else {
+            row.style.display = "none"; // hides this row
+            }
+        }
+        }

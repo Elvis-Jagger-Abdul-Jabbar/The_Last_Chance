@@ -1,58 +1,105 @@
-extends default
+extends default 
+
 block content
-  
-  p Click the button to sort the table alphabetically, by name:
-  p
-    button(onclick='sortTable()') Sort
-  table#myTable.styled.table
-          thead
-            tr
-              th Code
-              th Name
-              th Continent
-              th Region
-              th Population
-              th Capital
-          each country in json
-            tr
-              td #{country.Code}
-              td #{country.Name}
-              td #{country.Continent}
-              td #{country.Region}
-              td #{country.Population}
-              td #{country.Capital}
-
-
-  script.
-    function sortTable() {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = document.getElementById("myTable");
-    switching = true;
-    while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[4];
-      y = rows[i + 1].getElementsByTagName("TD")[4];
-      //check if the two rows should switch place:
-      if (Number(x.innerHTML) < Number(y.innerHTML)) {
-        //if so, mark as a switch and break the loop:
-        shouldSwitch = true;
-        break;
+  head#fixed
+    
+  // Custom syle
+  style.
+    div.container {
+          width: 90%;
       }
+    table.display{
+      margin-left: 10px;
     }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
+    
+  div.container
+    table#countries.display.nowrap(style='width:100%')
+      thead
+        tr
+          th Code
+          th Country
+          th Continent
+          th Region
+          th Population
+          th Capital
+        tr
+          td
+          td
+          td
+          td
+          td
+          td
+      tbody
+        each country in json
+          tr
+            td #{country.Code}
+            td #{country.Name}
+            td #{country.Continent}
+            td #{country.Region}
+            td #{country.Population}
+            td #{country.Capital}
+  // Custom script to add dropdwons dependant
+  script.
+    /* Plugin API method to determine is a column is sortable */
+    $.fn.dataTable.Api.register('column().searchable()', function() {
+    var ctx = this.context[0];
+    return ctx.aoColumns[this[0]].bSearchable;
+    });
+    function createDropdowns(api) {
+    api.columns().every(function() {
+    if (this.searchable()) {
+    var that = this;
+    var col = this.index();
+    // Only create if not there or blank
+    var selected = $('thead tr:eq(1) td:eq(' + col + ') select').val();
+    if (selected === undefined || selected === '') {
+    // Create the `select` element
+    $('thead tr:eq(1) td')
+    .eq(col)
+    .empty();
+    var select = $('<select><option value=""></option></select>')
+    .appendTo($('thead tr:eq(1) td').eq(col))
+    .on('change', function() {
+    that.search($(this).val()).draw();
+    createDropdowns(api);
+    });
+    api
+    .cells(null, col, {
+    search: 'applied'
+    })
+    .data()
+    .sort()
+    .unique()
+    .each(function(d) {
+    select.append($('<option>' + d + '</option>'));
+    });
     }
     }
+    });
     }
+    $(document).ready(function() {
+    // Create the DataTable
+    var table = $('#countries').DataTable({
+      // Default sort
+      "order": [[ 4, "desc" ]],
+    rowReorder: {selector: 'td:nth-child(2)'},
+    responsive: true,
+    dom: 'lBfrtip',
+        buttons: ['copy', 'excel', 'csv','pdf', 'print'],
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    fixedHeader: {
+            header: true,
+            headerOffset: $('#fixed').height()
+        },
+    orderCellsTop: true,
+    columnDefs: [
+    {
+    searchable: false,
+    targets: []
+    }
+    ],
+    initComplete: function() {
+    createDropdowns(this.api());
+    }
+    });
+    });

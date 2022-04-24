@@ -1,9 +1,3 @@
-module.exports = {
-  hello: function(){
-    return 'Hello';
-  }
-}
-const { query } = require('express');
 const express = require('express');
 const app = express();
 
@@ -95,7 +89,8 @@ app.get('/', (req, res) => {
   });
 });
 
-// Couontries get, query all from database
+// Countries route
+// Query all from country table where capital = capital from city table
 app.get('/countries', function (req, res) {
 let fetchedData = [];
 let sql = `SELECT c.*, s.Name as 'Capital' 
@@ -110,12 +105,13 @@ connection.query(sql, (error, countries, fields) => {
     var json =  JSON.parse(string);
     //console.log(json);
     res.render('countries', {
-      title: 'Countries Data',
+      title: 'Countries Population',
       json,
     });
   });
+});
 
-// Country get, query all from database
+// cities get, query all from database
 app.get('/cities', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT c.*, s.Name as 'Country' 
@@ -136,6 +132,27 @@ app.get('/cities', function (req, res) {
     });
   });
  
+// cities get, query all from database
+app.get('/capitals', function (req, res) {
+  let fetchedData = [];
+  let sql = `SELECT s.*, c.Name as Country, c.Capital as 'Capital' 
+            FROM city s, country c
+            WHERE c.Capital = s.ID`;
+  connection.query(sql, (error, countries, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+      // string json and return database to front end
+      var string = JSON.stringify(countries);
+      var json =  JSON.parse(string);
+      //console.log(json);
+      res.render('capitals', {
+        title: 'Capitals Population',
+        json,
+      });
+    });
+  });
+
 // Query continent: Africa
 app.get('/languages', function (req, res){
   let sql = `SELECT * FROM  countrylanguage`;
@@ -146,7 +163,7 @@ app.get('/languages', function (req, res){
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      console.log(json);
+      //console.log(json);
       res.render('languages', {
         title: 'Languages',
         json,  
@@ -164,9 +181,9 @@ app.get('/data', function (req, res){
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      //console.log(json);
+      console.log(json);
       res.render('data', {
-        title: 'Europe, Population sorter',
+        title: 'Country Data',
         json,  
       });
     });
@@ -218,6 +235,5 @@ app.get('/sorter', function (req, res) {
   });
 
 
-});
 
 module.exports = server;

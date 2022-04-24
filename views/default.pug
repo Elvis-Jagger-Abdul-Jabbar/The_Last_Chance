@@ -1,36 +1,60 @@
-doctype html
-html
-  head
-    title #{title}
-    link(rel='stylesheet', href='/css/Style.css')
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-  body
-    main
-      block header
-        header.header
-          h1 #{title}        
-  head
-  meta(name='viewport' content='width=device-width, initial-scale=1')
-  style.
-    
-#navbar
-  a.active(href='/') Home
-  a(href='/data') World
-  a(href='/countries') Countries
-  a(href='/cities') Cities
-  a(href='/capitals') Capitals
-  a(href='/about') About
-  a.right(href='/login') Login
-  a.right(href='/signup') Register
-script.
-  window.onscroll = function() {myFunction()};
-  var navbar = document.getElementById("navbar");
-  var sticky = navbar.offsetTop;
-  function myFunction() {
-  if (window.pageYOffset >= sticky) {
-  navbar.classList.add("sticky")
-  } else {
-  navbar.classList.remove("sticky");
-  }
-  }
+head
+  include script
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title World Population
+  // fonts
+  link(href='https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' integrity='sha256-gvEnj2axkqIj4wbYhPjbWV7zttgpzBVEgHub9AAZQD4=' crossorigin='anonymous')
+  // style
+  link(rel='stylesheet' href='css/style.css')
+  // Jquery
+  script(src="https://code.jquery.com/jquery-3.5.1.js")
+  // Table style and scripts
+  script(src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js")
+  link(href='https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css')
+  // Responsive table
+  script(src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js")
+  script(src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js")
+  link(href='https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css' rel='stylesheet' type='text/css')
+  link(href='https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css' rel='stylesheet' type='text/css')
+
+  // fixed headers
+  script(src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js")
+  script(src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js")
+  link(href='https://cdn.datatables.net/fixedheader/3.2.2/css/fixedHeader.dataTables.min.css' rel='stylesheet' type='text/css')
+
+  // Export buttons
+  link(href='https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css' rel='stylesheet' type='text/css')
+  script(src='https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js')
+  // Required for any button to appear
+  script(src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.js")
+  script(src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.js")
+  // Print button
+  script(src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.js")
+  // Excelll button
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.js")
+  // PDF button
+  script(src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.js")
+
+header#fixed
+  .container
+    .logo
+      | #{title}
+    input#hamburger-button.hamburger-button(type='checkbox')
+    label(for='hamburger-button')
+      div
+    .menu#fixed
+      nav
+        ul
+          li
+            a.nav-link(href='/') Home
+          li
+            a.nav-link(href='/countries') Countries
+          li
+            a.nav-link(href='/cities') Cities
+          li
+            a.nav-link(href='/capitals') Capitals
+          li
+            a.nav-link(href='/people') People
 block content
