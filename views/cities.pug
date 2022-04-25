@@ -1,10 +1,11 @@
 extends default 
 
 block content
-     
+  head
+    
   // Custom syle
   style.
-    div.container { max-width: 1200px }
+     div.container { max-width: 1200px }
     
   div.container
     table#cities.display.nowrap(style='width:100%')
@@ -14,11 +15,7 @@ block content
           th Country
           th district
           th Population
-          th Population
-          th Capital
         tr
-          td
-          td
           td
           td
           td
@@ -30,8 +27,6 @@ block content
             td #{country.Country}
             td #{country.District}
             td #{country.Population}
-            td #{country.Population}
-            td #{country.Capital}
   // Custom script to add dropdwons dependant
   script.
     /* Plugin API method to determine is a column is sortable */
@@ -74,29 +69,34 @@ block content
     $(document).ready(function() {
     // Create the DataTable
     var table = $('#cities').DataTable({
-      // default order 4th row (population)
-      "order": [[ 4, "desc" ]],
+      // Default sort
+      "order": [[ 3, "desc" ]],
+      // Responsive
       rowReorder: {
-              selector: 'td:nth-child(2)'
+              selector: 'td:nth-child(1)'
           },
           responsive: true,
-      dom: 'lBfrtip',
+    // Buttons
+    dom: 'lBfrtip',
         buttons: [
             'copy',
             'excel',
             'csv',
             'pdf'
         ],
+    // Paging 
     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-    fixedHeader: {
-            header: true,
-            headerOffset: $('#fixed').height()
-        },
-    orderCellsTop: false,
+    // Fixed headers
+    fixedHeader:{
+      header: true,
+      headerOffset: $('#fixed').height()
+    },
+    orderCellsTop: true,
     columnDefs: [
     {
+    // Non-searchable columns
     searchable: false,
-    targets: [0, 4]
+    targets: [3]
     }
     ],
     initComplete: function() {
