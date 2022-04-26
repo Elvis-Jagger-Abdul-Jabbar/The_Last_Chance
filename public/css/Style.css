@@ -524,9 +524,9 @@ color: #4A90E2;
 }
 
 .container {
-max-width: 1000px;
+max-width: 1200px;
 margin: 0 auto;
-padding-top: 4rem;
+padding-top: 1rem;
 }
 
 /* scroll up button*/
@@ -632,7 +632,10 @@ padding-top: 4rem;
   z-index: 1;
   top: 55px;
   left: 10px;
-  background: #eee;
+  background: rgb(90, 176, 185);
   overflow-x: hidden;
   padding: 8px 0;
 }
+
+/* lenght input */
+.length { margin-bottom: 1em }

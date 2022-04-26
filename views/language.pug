@@ -1,6 +1,7 @@
 extends default 
 
 block content
+block content
   head
   
   // Custom style
@@ -8,33 +9,22 @@ block content
     
     label { margin-right: 2em }
   div.container
-    label Number of rows show:  
-    input#length.length
-    table#countries.display.nowrap(style='width:100%')
+    table#language.display.nowrap(style='width:100%')
       thead
         tr
-          th Code
-          th Country
-          th Continent
-          th Region
-          th Population
-          th Capital
+          th Language
+          th Speakers
+          th % of the World Population
         tr
-          td
-          td
-          td
           td
           td
           td
       tbody
-        each country in json
+        each language in json
           tr
-            td #{country.Code}
-            td #{country.Name}
-            td #{country.Continent}
-            td #{country.Region}
-            td #{country.Population}
-            td #{country.Capital}
+            td #{language.language}
+            td #{language.Speakers}
+            td #{language.Percent}
   // Custom script to add dropdwons dependant
   script.
     // Plugin API method to determine if a column is sortable
@@ -72,9 +62,9 @@ block content
     }); } }}); }
     $(document).ready(function() {
     // Create the DataTable
-    var table = $('#countries').DataTable({
+    var table = $('#language').DataTable({
       // Default sort
-      "order": [[ 4, "desc" ]],
+      "order": [[ 1, "desc" ]],
     // Responsive
     rowReorder: {
       selector: 'td:nth-child(0)'
@@ -91,7 +81,7 @@ block content
             'colvis'
         ],
     // Paging 
-    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
     // Fixed headers
     fixedHeader:{
       header: true,
@@ -102,7 +92,7 @@ block content
     {
     // Non-searchable columns
     searchable: false,
-    targets: [0, 4]
+    targets: [1, 2]
     }
     ],
     initComplete: function() {

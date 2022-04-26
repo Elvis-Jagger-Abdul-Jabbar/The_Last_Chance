@@ -111,7 +111,7 @@ connection.query(sql, (error, countries, fields) => {
   });
 });
 
-// cities get, query all from database
+// cities route
 app.get('/cities', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT c.*, s.Name as 'Country' 
@@ -124,7 +124,7 @@ app.get('/cities', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      console.log(json);
+      //console.log(json);
       res.render('cities', {
         title: 'Cities Population',
         json,
@@ -132,7 +132,7 @@ app.get('/cities', function (req, res) {
     });
   });
  
-// cities get, query all from database
+// capitals route
 app.get('/capitals', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT s.*, c.Name as Country, c.Capital as 'Capital' 
@@ -153,27 +153,15 @@ app.get('/capitals', function (req, res) {
     });
   });
 
-// Query continent: Africa
-app.get('/languages', function (req, res){
-  let sql = `SELECT * FROM  countrylanguage`;
-  connection.query(sql, (error, countries, fields) => {
-    if (error) {
-      return console.error(error.message);
-    }
-      // string json and return database to front end
-      var string = JSON.stringify(countries);
-      var json =  JSON.parse(string);
-      //console.log(json);
-      res.render('languages', {
-        title: 'Languages',
-        json,  
-      });
-    });
-  });
-
-  // Query continent: Asia
-app.get('/data', function (req, res){
-  let sql = `SELECT * FROM country`;
+// People route
+app.get('/people', function (req, res) {
+  let fetchedData = [];
+  let sql = `SELECT c.Continent, c.Region, c.Name as 'Country', c.Population,
+              round(sum(s.population)/c.Population *100 , 2) as 'Urban',
+              round((c.Population - sum(s.Population))/c.Population *100 , 2) as 'NonUrban'
+              from city s, country c
+              where s.CountryCode = c.Code
+              group by s.CountryCode`
   connection.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
@@ -182,18 +170,21 @@ app.get('/data', function (req, res){
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
       console.log(json);
-      res.render('data', {
-        title: 'Country Data',
-        json,  
+      res.render('people', {
+        title: 'Population Report',
+        json,
       });
     });
   });
 
-
-// About route
-app.get('/about', function (req, res) {
+// Langaue route
+app.get('/language', function (req, res) {
   let fetchedData = [];
-  let sql = `SELECT * FROM country`;
+  let sql = `select l.language, round(sum((l.Percentage * c.Population)/100)) as 'Speakers',
+        round((sum((l.Percentage * c.Population)/100))/(select sum(population) from country) *100, 2) as 'Percent', c.Name
+        from countrylanguage l, country c
+        where l.CountryCode = c.Code
+        group by l.Language`
   connection.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
@@ -201,15 +192,24 @@ app.get('/about', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      //console.log(json);
-      res.render('about', {
-        title: 'testing filter -  all data',
+      console.log(json);
+      res.render('language', {
+        title: 'Languages Report',
         json,
       });
     });
   });
 
 
+// About route
+app.get('/about', function (req, res) {
+  
+      res.render('about', {
+        title: 'testing filter -  all data',
+        json,
+      });
+    });
+  
 
   // Sorter page to test all data in one page
 app.get('/sorter', function (req, res) {
@@ -225,7 +225,7 @@ app.get('/sorter', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      console.log(json);
+      //console.log(json);
       //console.log(json);
       res.render('sorter', {
         title: 'Sorter',

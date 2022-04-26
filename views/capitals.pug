@@ -5,10 +5,12 @@ block content
     
   // Custom syle
   style.
-     div.container { max-width: 1200px }
-    
+    div.container { max-width: 1200px }
+    label { margin-right: 2em }
   div.container
-    table#cities.display.nowrap(style='width:100%')
+    label Number of rows show:  
+    input#length.length
+    table#capitals.display.nowrap(style='width:100%')
       thead
         tr
           th Capital
@@ -68,21 +70,23 @@ block content
     }
     $(document).ready(function() {
     // Create the DataTable
-    var table = $('#cities').DataTable({
+    var table = $('#capitals').DataTable({
       // Default sort
       "order": [[ 3, "desc" ]],
       // Responsive
       rowReorder: {
-              selector: 'td:nth-child(1)'
+              selector: 'td:nth-child(0)'
           },
           responsive: true,
-    // Buttons
+    // Buttons, specify the title and export only visible columns    
     dom: 'lBfrtip',
         buttons: [
-            'copy',
-            'excel',
-            'csv',
-            'pdf'
+            {extend: 'copy', exportOptions: {columns: ':visible'}},
+            {extend: 'excel', title: 'Capitals Population', exportOptions: {columns: ':visible'}},
+            {extend: 'csv', title: 'Capitals Population', exportOptions: {columns: ':visible'}},
+            {extend: 'pdf', title: 'Capitals Population', exportOptions: {columns: ':visible'}}, 
+            {extend: 'print', title: 'Capitals Population', exportOptions: {columns: ':visible'}},
+            'colvis'
         ],
     // Paging 
     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -103,4 +107,9 @@ block content
     createDropdowns(this.api());
     }
     });
+    // Custom row lenght
+    $('#length').on('input', function() {
+    table.page.len($(this).val()).draw();
+    });
+
     });

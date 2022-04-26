@@ -1,0 +1,121 @@
+extends default 
+
+block content
+  head
+  
+  // Custom style
+  style.
+    
+    label { margin-right: 2em }
+  div.container
+    label Number of rows show:  
+    input#length.length
+    table#people.display.nowrap(style='width:100%')
+      thead
+        tr
+          th Continent
+          th Region
+          th Country
+          th Population
+          th % Living in a city
+          th % Not living in a city
+        tr
+          td
+          td
+          td
+          td
+          td
+          td
+      tbody
+        each people in json
+          tr
+            td #{people.Continent}
+            td #{people.Region}
+            td #{people.Country}
+            td #{people.Population}
+            td #{people.Urban}
+            td #{people.NonUrban}
+    // Custom script to add dropdwons dependant
+    script.
+        // Plugin API method to determine if a column is sortable
+        $.fn.dataTable.Api.register('column().searchable()', function() {
+        var ctx = this.context[0];
+        return ctx.aoColumns[this[0]].bSearchable;
+        });
+        function createDropdowns(api) {
+        api.columns().every(function() {
+        if (this.searchable()) {
+        var that = this;
+        var col = this.index();
+        // Only create if not there or blank
+        var selected = $('thead tr:eq(1) td:eq(' + col + ') select').val();
+        if (selected === undefined || selected === '') {
+        // Create the `select` element
+        $('thead tr:eq(1) td')
+        .eq(col)
+        .empty();
+        var select = $('<select><option value=""></option></select>')
+        .appendTo($('thead tr:eq(1) td').eq(col))
+        .on('change', function() {
+        that.search($(this).val()).draw();
+        createDropdowns(api);
+        });
+        api
+        .cells(null, col, {
+        search: 'applied'
+        })
+        .data()
+        .sort()
+        .unique()
+        .each(function(d) {
+        select.append($('<option>' + d + '</option>'));
+        }); } }}); }
+        $(document).ready(function() {
+        // Create the DataTable
+        var table = $('#people').DataTable({
+        // Default sort
+        "order": [[ 3, "desc" ]],
+        // Responsive
+        rowReorder: {
+        selector: 'td:nth-child(0)'
+        },
+        responsive: true,    
+        // Buttons, with export option to visible columns only
+        dom: 'lBfrtip',
+            buttons: [
+                {extend: 'copy', exportOptions: {columns: ':visible'}},
+                {extend: 'excel', title: 'Countries Population', exportOptions: {columns: ':visible'}},
+                {extend: 'csv', title: 'Countries Population', exportOptions: {columns: ':visible'}},
+                {extend: 'pdf', title: 'Countries Population', exportOptions: {columns: ':visible'}}, 
+                {extend: 'print', title: 'Countries Population', exportOptions: {columns: ':visible'}},
+                'colvis'
+            ],
+        // Paging 
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        // Fixed headers
+        fixedHeader:{
+        header: true,
+        headerOffset: $('#fixed').height()
+        },
+        orderCellsTop: true,
+        columnDefs: [
+        {
+        // Non-searchable columns
+        searchable: false,
+        targets: [3, 4, 5]
+        }
+        ],
+        initComplete: function() {
+        createDropdowns(this.api());
+        }
+        });
+        // Custom row lenght
+        $('#length').on('keyup change clear', function() {
+        if ($(this).val()!== ''){
+            table.page.len($(this).val()).draw();}
+        });  
+
+
+
+        });
+
