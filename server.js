@@ -65,24 +65,7 @@ connection.connect(function(err) {
     console.error(err);
   });
 
-// Search for country
-search = () => {
-let fetchedData = [];
-let name = process.argv[2];
-let database = 'world'
-let sql = `SELECT population FROM country WHERE name =` + mysql.escape(name);
-connection.query(sql, (error, results, fields) => {
-  if (error) {
-    return console.error(error.message);
-  }
-    var string=JSON.stringify(results);
-    var json =  JSON.parse(string);    
-    fetchedData = json[0].results;
-    return fetchedData;
-});
-};
-
-// Mainpage get
+// Main page routing to Index
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'World Population',
@@ -103,7 +86,8 @@ connection.query(sql, (error, countries, fields) => {
     // string json and return database to front end
     var string = JSON.stringify(countries);
     var json =  JSON.parse(string);
-    //console.log(json);
+    console.log('Countries json sent with ' + json.length + ' lines. Below a sample:');
+    console.log(json[15]);
     res.render('countries', {
       title: 'Countries Population',
       json,
@@ -111,7 +95,7 @@ connection.query(sql, (error, countries, fields) => {
   });
 });
 
-// cities route
+// Cities route
 app.get('/cities', function (req, res) {
   let fetchedData = [];
   let sql = `SELECT c.*, s.Name as 'Country' 
@@ -124,7 +108,8 @@ app.get('/cities', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      //console.log(json);
+      console.log('Cities json sent with ' + json.length + ' lines. Below a sample:');
+      console.log(json[17]);
       res.render('cities', {
         title: 'Cities Population',
         json,
@@ -145,7 +130,8 @@ app.get('/capitals', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      //console.log(json);
+      console.log('Capitals json sent with ' + json.length + ' lines. Below a sample:');
+      console.log(json[21]);
       res.render('capitals', {
         title: 'Capitals Population',
         json,
@@ -169,7 +155,8 @@ app.get('/people', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      console.log(json);
+      console.log('People json sent with ' + json.length + ' lines. Below a sample:');
+      console.log(json[18]);
       res.render('people', {
         title: 'Population Report',
         json,
@@ -192,7 +179,8 @@ app.get('/language', function (req, res) {
       // string json and return database to front end
       var string = JSON.stringify(countries);
       var json =  JSON.parse(string);
-      console.log(json);
+      console.log('Language json sent with ' + json.length + ' lines. Below a sample:');
+      console.log(json[45]);
       res.render('language', {
         title: 'Languages Report',
         json,
@@ -205,7 +193,7 @@ app.get('/language', function (req, res) {
 app.get('/about', function (req, res) {
   
       res.render('about', {
-        title: 'testing filter -  all data',
+        title: 'About',
         json,
       });
     });
