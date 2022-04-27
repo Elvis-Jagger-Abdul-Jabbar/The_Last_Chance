@@ -18,7 +18,8 @@ const server = app.listen(7000, () => {
 var mysql = require('mysql');
 
 // Mysql connection parameters
-var connection = mysql.createConnection({
+var pool = mysql.createPool({
+    connectionLimit: 10,
     host: 'localhost',
     user: 'root',
     password: 'MYSQL_PASS',
@@ -26,13 +27,13 @@ var connection = mysql.createConnection({
 });
 
 // Connect to Mysql
-connection.connect(function(err) {
+pool.getConnection(function(err, connection) {
     if (err) {
       return console.error('error: ' + err.message);
     }
     console.log("Connected to Mysql");
     // Create database
-    connection.query("CREATE DATABASE IF NOT EXISTS world",
+    pool.query("CREATE DATABASE IF NOT EXISTS world",
       function (err, result){
         if (err) throw err;
         console.log("Database created or already exisiting");
@@ -53,9 +54,7 @@ connection.connect(function(err) {
     var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
     console.log(`${percent}% Completed`);
   });
-
-
-    
+  
   // Import world.sql
   console.log('Importing SQL file.')
   importer.import('./world-db/world.sql').then(()=>{
@@ -79,7 +78,7 @@ let fetchedData = [];
 let sql = `SELECT c.*, s.Name as 'Capital' 
           FROM country c, city s
           WHERE c.Capital = s.ID`
-connection.query(sql, (error, countries, fields) => {
+pool.query(sql, (error, countries, fields) => {
   if (error) {
     return console.error(error.message);
   }
@@ -101,7 +100,7 @@ app.get('/cities', function (req, res) {
   let sql = `SELECT c.*, s.Name as 'Country' 
             FROM city c, country s
             WHERE c.CountryCode = s.Code`;
-  connection.query(sql, (error, countries, fields) => {
+  pool.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
     }
@@ -123,7 +122,7 @@ app.get('/capitals', function (req, res) {
   let sql = `SELECT s.*, c.Name as Country, c.Capital as 'Capital' 
             FROM city s, country c
             WHERE c.Capital = s.ID`;
-  connection.query(sql, (error, countries, fields) => {
+  pool.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
     }
@@ -148,7 +147,7 @@ app.get('/people', function (req, res) {
               from city s, country c
               where s.CountryCode = c.Code
               group by s.CountryCode`
-  connection.query(sql, (error, countries, fields) => {
+  pool.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
     }
@@ -172,7 +171,7 @@ app.get('/language', function (req, res) {
         from countrylanguage l, country c
         where l.CountryCode = c.Code
         group by l.Language`
-  connection.query(sql, (error, countries, fields) => {
+  pool.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
     }
@@ -190,11 +189,10 @@ app.get('/language', function (req, res) {
 
 
 // About route
-app.get('/about', function (req, res) {
+app.get('/login', function (req, res) {
   
-      res.render('about', {
-        title: 'About',
-        json,
+      res.render('login', {
+        title: 'About'
       });
     });
   
@@ -206,7 +204,7 @@ app.get('/sorter', function (req, res) {
     SUM(population) as population
     FROM country
     GROUP BY continent `;
-  connection.query(sql, (error, countries, fields) => {
+  pool.query(sql, (error, countries, fields) => {
     if (error) {
       return console.error(error.message);
     }

@@ -26,6 +26,14 @@ block content
           td
           td
           td
+      tfoot
+        tr
+          th 
+          th 
+          th 
+          th
+          th  
+          th 
       tbody
         each people in json
           tr
@@ -35,6 +43,7 @@ block content
             td #{people.Population}
             td #{people.Urban}
             td #{people.NonUrban}
+      
     // Custom script to add dropdwons dependant
     script.
         // Plugin API method to determine if a column is sortable
@@ -73,6 +82,34 @@ block content
         $(document).ready(function() {
         // Create the DataTable
         var table = $('#people').DataTable({
+            "autoWidth": false,
+            "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api();
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+            filteredTotal = api
+                .column( 3, { search: "applied" } )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 ); 
+            pageTotal = api
+                .column( 3, { search: "applied" } )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 ); 
+            // Update footer
+            $( api.column( 3 ).footer() ).html(
+              pageTotal + '(' + filteredTotal + ')'
+            );
+        },
         // Default sort
         "order": [[ 3, "desc" ]],
         // Responsive
@@ -114,7 +151,6 @@ block content
         if ($(this).val()!== ''){
             table.page.len($(this).val()).draw();}
         });  
-
 
 
         });

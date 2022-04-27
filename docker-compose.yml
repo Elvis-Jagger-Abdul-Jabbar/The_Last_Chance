@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+    mysqldb:
+        image: mysql
+        environment: 
+            MYSQL_ROOT_PASSWORD: MYSQL_PASS
+            MYSQL_DATABASE: world
+            MYSQL_HOSTNAME: localhost
+        ports:
+            - 8000:3306
+        volumes:
+            - mysql:/var/lib/mysql
+            - mysql_config:/etc/mysql
+    web:
+        build: .
+        volumes: 
+            - /app
+            - /node_modules
+            - /public
+        ports:
+            - 7000:7000
+        depends_on: 
+            - db
+        environment: 
+            MYSQL_HOST: 'localhost'
+
+volumes:
+    mysql:
+    mysql_config:
