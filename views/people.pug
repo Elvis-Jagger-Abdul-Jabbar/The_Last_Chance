@@ -84,30 +84,25 @@ block content
         var table = $('#people').DataTable({
             "autoWidth": false,
             "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api();
- 
+            var api = this.api(); 
             // Remove the formatting to get integer data for summation
             var intVal = function ( i ) {
                 return typeof i === 'string' ?
                     i.replace(/[\$,]/g, '')*1 :
                     typeof i === 'number' ?
-                        i : 0;
-            };
-            filteredTotal = api
-                .column( 3, { search: "applied" } )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 ); 
-            pageTotal = api
+                        i : 0; };
+            popTotal = api
                 .column( 3, { search: "applied" } )
                 .data()
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0 ); 
             // Update footer
-            $( api.column( 3 ).footer() ).html(
-              pageTotal + '(' + filteredTotal + ')'
+            $( api.column(2).footer() ).html(
+              '            Total population:'
+            );
+            $( api.column(3).footer() ).html(
+              popTotal
             );
         },
         // Default sort
