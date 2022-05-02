@@ -15,3 +15,9 @@
     • The application is deployable as a Docker container.
 
 # How to run:
+   • Ensure you have docker desktop installed and running:  https://www.docker.com/products/docker-desktop/
+   • Clone repository
+   • Install npm dependencies
+   • Run docker compose on console: docker-compose up -- build
+   • On your browser, visit localhost:7000 for the application and localhost:8081 for phpMyadmin
+   
