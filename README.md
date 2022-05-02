@@ -1,7 +1,8 @@
 # The_Last_Chance
 
 # Note:
-   Make sure to check our Wiki page: https://github.com/Elvis-Jagger-Abdul-Jabbar/The_Last_Chance/wiki
+	This appliaction was written user @Elvis-Jagger-Abdul-Jabbar, please contact him for any questions.
+   	Make sure to check our Wiki page: https://github.com/Elvis-Jagger-Abdul-Jabbar/The_Last_Chance/wiki
 
 # Objectif:
  	This project aims to create a web application that provides reports on world population:
