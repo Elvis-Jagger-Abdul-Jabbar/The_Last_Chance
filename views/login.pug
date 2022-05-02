@@ -1,13 +1,10 @@
 extends default
+
 block content
-    head
-        title Login Form
-    body
-        form(method="POST", action="/submit")
-            label(for = "username") Username:
-            input(type = "text", name = "username")
-            br
-            label(for = "password") Password:
-            input(type = "password", name = "password")
-            br
-            input(type = "submit", name = "submit", value = "submit")
+    h1 Login here
+    form(action='/authenticate' method='POST')
+    label(for='email') Enter your email:
+    input('name'='email')
+    label(for='email') Enter your password:
+    input('name'='password')
+    input(type='submit' value='Submit')

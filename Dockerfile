@@ -1,6 +1,20 @@
-FROM node:14
-WORKDIR /
-COPY package.json .
-RUN npm install
-COPY . .
-CMD npm start
+# Base image to use
+FROM node:latest
+
+# set a working directory
+WORKDIR /src
+
+# Copy across project configuration information
+# Install application dependencies
+COPY package*.json /src/
+
+# Ask npm to install the dependencies
+RUN npm install -g supervisor && npm install && npm install supervisor
+
+# Copy across all our files
+COPY . /src
+
+# Expose our application port (3000)
+EXPOSE 3000
+
+# Run no-demon so files can be updated
